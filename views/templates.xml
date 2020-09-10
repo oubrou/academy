@@ -1,0 +1,229 @@
+<odoo>
+    
+    
+    <data>
+           <!--   top menu  --> 	
+	     <record id="menu_manage_teacher" model="website.menu">
+            <field name="name">manage teacher</field>
+            <field name="url">/academy/data</field>
+			<field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">19</field>
+         </record>
+	     
+	     <record id="menu_teacher_form" model="website.menu">
+            <field name="name">Create teacher</field>
+            <field name="url">/academy/teacher_form</field>
+			<field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">20</field>
+         </record>
+		  <record id="menu_teacher_list" model="website.menu">
+            <field name="name">show teachers</field>
+            <field name="url">/academy/data</field>
+			<field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">21</field>
+          </record>
+		<!-- Assets -->
+		<template id="asset_frontend" name="Academy Assets" inherit_id="website.assets_frontend">
+		         <xpath expr="." position="inside">
+                    <link rel="stylesheet" href="/academy/static/src/css/index.css"/>
+				 </xpath>	
+                  <xpath expr="." position="inside">					
+                    <script type="text/javascript" src="/academy/static/src/js/sample.js"/> 
+                  </xpath>
+
+	
+		</template>
+		
+        <!-- Layout -->
+		 <template id="create_teacher" name="Create a teacher">
+              <t t-call="website.layout">        
+                    <div id="wrap">
+                     <div class="oe_structure">
+                        <div class="container border">
+						 
+    <!-- Stepper -->
+    <div class="steps-form">
+      <div class="steps-row setup-panel">
+        <div class="steps-step">
+          <a href="#step-9" type="button" class="btn btn-indigo btn-circle">1</a>
+          <p>Step 1</p>
+        </div>
+        <div class="steps-step">
+          <a href="#step-10" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+          <p>Step 2</p>
+        </div>
+        <div class="steps-step">
+          <a href="#step-11" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+          <p>Step 3</p>
+        </div>
+      </div>
+    </div>
+						
+						
+						
+						
+						
+						   <div class="row">
+						       <span class="border border-success"><h3>  Teacher Form</h3></span>						       
+						   </div>
+						  
+						  
+						    <form  action="/academy/form/submit" >
+						           <div class="form-group row form-field o_website_form_required_custom">
+								   	     <div class="col-lg-3 col-md-4">
+								          <label for="name">Nom</label>	
+									     </div>
+                                          <div class="col-lg-7 col-md-8 ">								 
+                                              <input type="text" class="form-control" name="name" id="name" required="true" />
+									      </div>
+                                    </div>									 
+                                    <div class="form-group row form-field o_website_form_custom">
+									        <div class="col-lg-3 col-md-4">
+								                  <label for="name">Prénom</label>
+                                            </div>	
+                                             <div class="col-lg-7 col-md-8">											 
+                                                  <input type="text" class="form-control" name="lastname" id="lastname" required="true" />
+											 </div>
+                                      </div>									  
+                                
+								     <div class="form-group row form-field o_website_form_custom">
+								           <div class="col-lg-3 col-md-4">
+								                 <label for="name">Date de naissance</label>
+                                            </div>
+                                            <div class="col-lg-7 col-md-8">											 										
+                                                   <input type="date" class="form-control" name="birth_day" id="birthday" required="true" />
+                                            </div>										 											
+                                     </div>									  
+                                
+								<div class="form-group row form-field o_website_form_custom">
+								           <div class="col-lg-3 col-md-4">
+								              <label for="name">CIN</label>	
+                                           </div>
+										    <div class="col-lg-7 col-md-8">		
+                                                 <input type="text" class="form-control" name="card_number" id="card_number" required="true" />
+                                            </div>									  
+                                 </div>
+								 <div class="form-group row form-field o_website_form_custom">
+								           <div class="col-lg-3 col-md-4">
+								               <label for="name">Lieu de naissance</label>
+                                            </div>
+                                            <div class="col-lg-7 col-md-8">												
+                                                <input type="text" class="form-control" name="birthplace" id="birthplace" required="true" />
+											
+                                               </div>									  
+                                 </div>
+								 <div class="form-group row form-field o_website_form_custom">
+								           <div class="col-lg-3 col-md-4">
+								               <label for="name">Biography</label>
+                                            </div>
+                                            <div class="col-lg-7 col-md-8">												
+                                                <!-- <textarea class="form_control load_editor" name="biography" id="biography" cols="30" rows="10"> -->
+												<!-- </textarea> -->
+											 <textarea name="biography" required="True" id="biography" class="form-control load_editor">
+                                                     
+                                             </textarea>
+                                            </div>									  
+                                 </div>
+                                      <div class="form-group row form-field o_website_form_custom">
+								           <div class="col-lg-3 col-md-4">	</div>	
+                                             <div class="col-lg-7 col-md-8">											   
+                                                 <button type="submit" class="btn btn-primary">Create</button>
+									</div>	
+                                 </div>										
+							</form>					                            						
+                         </div>
+				    </div>
+					
+				</div>	
+            </t>
+         </template>
+		
+		
+       <template id="teacher_form_success" name="Teacher Form Successfully Submitted">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="alert alert-success">
+                                    Teacher created successfully.							 
+                                   <p><t t-esc="teacher.name"/> <t t-esc="teacher.lastname"/><t t-esc="teacher.id"/></p>                         							 
+                        </div>					
+                    </div>
+                </div>
+            </div>
+        </t>
+        </template>
+
+        <template id="home">
+            <title>Academy</title>
+            <t t-foreach="teachers" t-as="teacher">
+              <p><t t-esc="teacher"/></p>
+            </t>
+        </template>
+         <template id="data">
+            <title>Academy</title>
+            <t t-foreach="teachers" t-as="teacher">
+                <p><t t-esc="teacher.id"/> <t t-esc="teacher.name"/></p>
+            </t>
+        </template>
+
+        <template id="index">
+         <t t-call="website.layout">        
+                <t t-set="title">Academy</t>
+				<div id="wrap">
+                <div class="oe_structure">
+                    <div class="container">
+					 <div class="row align-items-center">
+					          <div class="col-md-6">
+                                   <h2>  Teachers list </h2>
+                             </div>					 
+					 </div>				 
+					  <div class="row  d-flex justify-content-center">
+					  <div class="col">
+					   <table class="table">
+					        <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Nom</th>
+                                        <th scope="col">Prénom</th>
+                                        <th scope="col">Date de naissance</th>
+										<th scope="col">lieu de naissance</th>
+										<th scope="col">Etat</th>
+                                    </tr>
+                            </thead>
+							 <tbody>
+							   
+                                  <t t-foreach="teachers" t-as="teacher">
+						             <tr>
+						               <td> <t t-esc="teacher.id"/>  </td>
+						               <td> <t t-esc="teacher.name"/>  </td>
+									   <td> <t t-esc="teacher.lastname"/>  </td>
+									   <td> <t t-esc="teacher.birth_day"/>  </td>
+									   <td> <t t-esc="teacher.birthplace"/>  </td>
+									   <td> <t t-esc="teacher.state"/>  </td>
+						            </tr>			   
+                                </t>
+						     </tbody>
+						</table>
+						</div>
+						</div>
+                    </div>
+                </div>
+			</div>
+            </t>
+        </template>
+        <template id="biography">
+            <t t-call="website.layout">
+                <t t-set="title">Academy</t>
+                <div class="oe_structure"/>
+                <div class="oe_structure">
+                    <div class="container">
+                        <p><t t-esc="person.id"/> <t t-esc="person.name"/></p>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+            </t>
+        </template>
+       
+    </data>
+</odoo>

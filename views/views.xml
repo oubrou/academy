@@ -1,0 +1,110 @@
+<odoo>
+  <data>
+  <record id="academy_teacher_form" model="ir.ui.view">
+    <field name="name">Academy teachers: form</field>
+    <field name="model">academy.teachers</field>
+    <field name="arch" type="xml">
+      <form>        
+             <header>
+			     <button name="btn_submit_to_b" string="A to B" type="object"   attrs="{'invisible': [('state', 'not in', ['A'])]}" class="btn-primary"/>
+				 <button name="btn_submit_to_c" string="B to C" type="object"  attrs="{'invisible': [('state', 'not in', ['B'])]}"  class="btn-primary"/>
+				 <button name="btn_submit_to_a" string="Annuler"  attrs="{'invisible': [('state', 'not in', ['A','B'])]}" type="object" />
+				 <button name="btn_sent_email"   string="Envoyer par email"    type="object"  class="btn-succes"  />
+                 <field name="state" widget="statusbar" statusbar_visible="A,B,C" readonly="1" />
+             </header>
+         	  
+        <sheet>
+		       <group> 
+                        <field name="image" widget='image' class="oe_avatar" options='{"zoom": true, "preview_image":"image"}'/>                
+		                <field name="name"/>
+				        <field name="lastname"/>
+				        <field name="name_ar"/>
+				        <field name="lastname_ar"/>
+				        <field name="birth_day"/>
+				        <field  name="card_number"/>
+						<field  name="taille"/>
+                         						
+				</group>
+                <label for="biography"/>
+                    <field name="biography"/>
+        </sheet>
+      </form>
+    </field>
+  </record>    
+              
+
+    <record id="action_academy_teachers" model="ir.actions.act_window">
+          <field name="name">Academy teachers</field>
+           <field name="res_model">academy.teachers</field>
+		   <field name="view_mode">tree,form</field>
+    </record>
+
+  <menuitem sequence="0" id="menu_academy" name="Academy"/>
+  <menuitem id="menu_academy_content" parent="menu_academy"
+            name="Academy Content"/>
+  <menuitem id="menu_academy_content_teachers"
+            parent="menu_academy_content"
+            action="action_academy_teachers"/>
+
+
+
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="academy.list">
+      <field name="name">Academy list</field>
+      <field name="model">academy.teachers</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="lastname"/>
+          <field name="birth_day"/>
+		  <field name="birthplace"/>
+		  <field name="state" />
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="academy.action_window">
+      <field name="name">Academy window</field>
+      <field name="res_model">academy.academy</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="academy.action_server">
+      <field name="name">Academy server</field>
+      <field name="model_id" ref="model_academy_academy"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="Academy" id="academy.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="academy.menu_1" parent="academy.menu_root"/>
+    <menuitem name="Menu 2" id="academy.menu_2" parent="academy.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="academy.menu_1_list" parent="academy.menu_1"
+              action="academy.action_window"/>
+    <menuitem name="Server to list" id="academy" parent="academy.menu_2"
+              action="academy.action_server"/>
+-->
+  </data>
+</odoo>

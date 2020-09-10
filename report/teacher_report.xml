@@ -1,0 +1,23 @@
+<odoo>
+    <report
+        id="report_teacher"
+        model="academy.teachers"
+        string="Teacher Report"
+        name="academy.report_teachers_view"
+        file="academy.report_teacher"
+        report_type="qweb-pdf" />
+
+    <template id="report_teachers_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 t-field="doc.name"/>
+                      
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
